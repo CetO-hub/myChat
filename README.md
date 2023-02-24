@@ -8,5 +8,5 @@ location.
 
 ## Technical
 
-Written in React Native
-Developed using Expo
+- Written in React Native
+- Developed using Expo
