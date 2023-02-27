@@ -117,12 +117,15 @@ const styles = StyleSheet.create({
   inputContainer: {
     position: "absolute",
     bottom: 0,
-    width: 400,
+    width: 350,
     height: 350,
     backgroundColor: "#ffffff",
     opacity: 0.9,
     justifyContent: "space-between",
+    padding: 20,
+    margin: 10,
   },
+
   inputName: {
     position: "relative",
     fontSize: 16,
