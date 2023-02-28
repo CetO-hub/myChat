@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -10,88 +10,90 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const Start = (props) => {
+export default class Start extends React.Component {
   // Save name and color
-  const [name, setName] = useState("");
-  const [color, setColor] = useState("");
+  constructor(props) {
+    super(props);
+    this.state = { name: "", color: "" };
+  }
 
-  return (
-    <View style={styles.container}>
-      {/* Set background */}
-      <ImageBackground
-        source={require("./img/background.png")}
-        style={styles.background}
-      >
-        <Text style={styles.text}>myChat</Text>
-        <View style={styles.inputContainer}>
-          <View style={styles.inputName}>
-            <Ionicons
-              style={{ position: "absolute", top: "40%", marginLeft: 8 }}
-              name="person-outline"
-              size={24}
-              color="#757083"
-            />
-            <TextInput
-              style={{ marginLeft: 30 }}
-              placeholder="Your Name"
-              value={name}
-              onChangeText={(text) => {
-                setName(text);
-              }}
-            />
-          </View>
-          <View style={{ marginTop: -60 }}>
-            <Text style={styles.colorText}>Choose Background Color:</Text>
-            {/* Set color depending on the area pressed */}
-            <View style={styles.colorBoxContainer}>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  setColor(styles.color1.backgroundColor);
-                }}
-              >
-                <View style={styles.color1} />
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  setColor(styles.color2.backgroundColor);
-                }}
-              >
-                <View style={styles.color2} />
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  setColor(styles.color3.backgroundColor);
-                }}
-              >
-                <View style={styles.color3} />
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  setColor(styles.color4.backgroundColor);
-                }}
-              >
-                <View style={styles.color4} />
-              </TouchableNativeFeedback>
+  render() {
+    return (
+      <View style={styles.container}>
+        {/* Set background */}
+        <ImageBackground
+          source={require("./img/background.png")}
+          style={styles.background}
+        >
+          <Text style={styles.text}>myChat</Text>
+          <View style={styles.inputContainer}>
+            <View style={styles.inputName}>
+              <Ionicons
+                style={{ position: "absolute", top: "40%", marginLeft: 8 }}
+                name="person-outline"
+                size={24}
+                color="#757083"
+              />
+              <TextInput
+                style={{ marginLeft: 30 }}
+                placeholder="Your Name"
+                value={this.state.name}
+                onChangeText={(name) => this.setState({ name })}
+              />
             </View>
+            <View style={{ marginTop: -60 }}>
+              <Text style={styles.colorText}>Choose Background Color:</Text>
+              {/* Set color depending on the area pressed */}
+              <View style={styles.colorBoxContainer}>
+                <TouchableNativeFeedback
+                  onPress={() => {
+                    this.setState({ color: styles.color1.backgroundColor });
+                  }}
+                >
+                  <View style={styles.color1} />
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                  onPress={() => {
+                    this.setState({ color: styles.color2.backgroundColor });
+                  }}
+                >
+                  <View style={styles.color2} />
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                  onPress={() => {
+                    this.setState({ color: styles.color3.backgroundColor });
+                  }}
+                >
+                  <View style={styles.color3} />
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                  onPress={() => {
+                    this.setState({ color: styles.color4.backgroundColor });
+                  }}
+                >
+                  <View style={styles.color4} />
+                </TouchableNativeFeedback>
+              </View>
+            </View>
+            {/* Navigate to chat screen upon pressing */}
+            <Pressable
+              style={styles.buttonChat}
+              onPress={() => {
+                this.props.navigation.setOptions({ title: this.state.name });
+                this.props.navigation.navigate("Chat", {
+                  name: this.state.name,
+                  color: this.state.color,
+                });
+              }}
+            >
+              <Text style={styles.buttonText}>Start Chatting</Text>
+            </Pressable>
           </View>
-          {/* Navigate to chat screen upon pressing */}
-          <Pressable
-            style={styles.buttonChat}
-            onPress={() => {
-              props.navigation.setOptions({ title: `${name}` });
-              props.navigation.navigate("Chat", {
-                name,
-                color,
-              });
-            }}
-          >
-            <Text style={styles.buttonText}>Start Chatting</Text>
-          </Pressable>
-        </View>
-      </ImageBackground>
-    </View>
-  );
-};
+        </ImageBackground>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -189,5 +191,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default Start;
